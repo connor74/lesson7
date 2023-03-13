@@ -42,4 +42,4 @@ all_tags = messages.where("event.message_channel_to is not null").selectExpr(["e
 verified_tags = spark.read.parquet("/user/master/data/snapshots/tags_verified/actual")
 candidates = all_tags.join(verified_tags, "tag", "left_anti")
  
-candidates.write.parquet('/user/username/data/analytics/candidates_d7_pyspark')
+candidates.write.parquet('/user/dbt8181/data/analytics/candidates_d7_pyspark')
