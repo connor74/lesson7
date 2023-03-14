@@ -4,7 +4,7 @@ from pyspark.sql.window import Window
  
 def input_event_paths(date, depth):
     dt = datetime.datetime.strptime(date, '%Y-%m-%d')
-    return [f"/user/username/data/events/date={(dt-datetime.timedelta(days=x)).strftime('%Y-%m-%d')}" for x in range(depth)]
+    return [f"/user/dbt8181/data/events/date={(dt-datetime.timedelta(days=x)).strftime('%Y-%m-%d')}" for x in range(depth)]
  
 def reaction_tag_tops(date, depth, spark):
     reaction_paths = input_event_paths(date, depth)
@@ -13,7 +13,7 @@ def reaction_tag_tops(date, depth, spark):
         .parquet(*reaction_paths)\
         .where("event_type='reaction'")
  
-    all_message_tags = spark.read.parquet("/user/username/data/events")\
+    all_message_tags = spark.read.parquet("/user/dbt8181/data/events")\
         .where("event_type='message' and event.message_channel_to is not null")\
         .select(F.col("event.message_id").alias("message_id"),
             F.col("event.message_from").alias("user_id"),
